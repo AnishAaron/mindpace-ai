@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AppProvider, useAppContext } from './context/AppContext';
 import { Navigation } from './components/Navigation';
 import { Onboarding } from './pages/Onboarding';
@@ -71,7 +71,7 @@ const AppContent = () => {
 function App() {
   return (
     <AppProvider>
-      <Router basename="/mindpace-ai/">
+      <Router>
         <AppContent />
       </Router>
     </AppProvider>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+      // GitHub Pages SPA redirect trick for HashRouter
+      // If someone visits /mindpace-ai/auth, this script fires on the 404 page
+      // and immediately redirects them to /mindpace-ai/#/auth
+      var pathSegmentsToKeep = 1; // 1 because the repo name is 1 segment (/mindpace-ai/)
+
+      var l = window.location;
+      
+      // Get the path without the repo name
+      var path = l.pathname.split('/').slice(pathSegmentsToKeep + 1).join('/');
+      
+      // Redirect to the hash router version
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/#/' +
+        path +
+        l.search
+      );
+    </script>
+  </head>
+  <body>
+    Redirecting to the application...
+  </body>
+</html>

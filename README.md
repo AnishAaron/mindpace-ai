@@ -10,6 +10,11 @@
 
 ---
 
+## 📖 About
+**MindPace AI** is a GenAI-powered mental wellness companion tailored specifically for students navigating the immense pressure of high-stakes competitive exams like NEET, JEE, UPSC, CUET, CAT, and GATE. Built to go beyond traditional habit tracking, MindPace utilizes advanced sentiment analysis via Gemini AI to provide personalized coping mechanisms, dynamic burnout risk assessment, and a safe, non-judgmental journaling space for students to reflect, vent, and recharge.
+
+---
+
 ## 🎯 The Problem
 Students preparing for major academic milestones often face severe stress, burnout, and self-doubt. Standard habit trackers fail to address the underlying emotional turmoil, and many gamified systems (like "daily streaks") actively induce anxiety when a student misses a day.
 

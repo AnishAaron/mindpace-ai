@@ -30,12 +30,21 @@ Students preparing for major academic milestones often face severe stress, burno
 
 ---
 
-## 🚀 Live Demo Credentials
+## 🚀 Live Demo & Getting Started
 You can test the application using the following reviewer credentials:
 - **Email:** `user@mail.com`
 - **Password:** `abcd243`
 
 *(Note: Reviewers can also sign up for a fresh account to experience the onboarding flow and exam selection process).*
+
+### 🔑 Using AI Features (Important)
+Because this app is deployed as a static site (e.g. GitHub Pages), the private Gemini API keys are intentionally kept out of the public source code. 
+To use the AI features (Daily Vent analysis, CalmCompanion, etc.), you will need to provide a Gemini API Key:
+1. Go to [Google AI Studio](https://aistudio.google.com/app/apikey) and generate a **free** Gemini API key.
+2. Inside the MindPace AI app, click the **Settings (⚙️ Gear Icon)** in the top right of the navigation bar.
+3. Paste your API key and click **Save Settings**. 
+
+> *Security Note: Your key is securely stored in your browser's local storage. It is never sent to our servers, and it ensures the app remains completely free and secure.*
 
 ---
 

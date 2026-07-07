@@ -1,16 +1,20 @@
 
 import { NavLink, useNavigate } from 'react-router-dom';
-import { BookOpen, Activity, MessageSquare, LogOut, LayoutDashboard } from 'lucide-react';
+import { BookOpen, Activity, MessageSquare, LogOut, LayoutDashboard, Settings } from 'lucide-react';
 import { auth } from '../config/firebase';
 import { signOut } from 'firebase/auth';
 import { useAppContext } from '../context/AppContext';
 import { EXAM_DATA } from '../config/examData';
 import { ExamType } from '../types';
+import { SettingsModal } from './SettingsModal';
+import { useState } from 'react';
 
 export const Navigation = () => {
   const navigate = useNavigate();
   const { user } = useAppContext();
   const examInfo = user?.targetExam ? EXAM_DATA[user.targetExam as ExamType] : null;
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
 
   const handleSignOut = async () => {
     try {
@@ -65,8 +69,15 @@ export const Navigation = () => {
               <span className="hidden md:block text-sm text-slate-500">Hi, <span className="font-medium text-slate-700">{user.name.split(' ')[0]}</span></span>
             )}
             <button 
+              onClick={() => setIsSettingsOpen(true)}
+              className="p-1.5 text-slate-400 hover:text-slate-600 transition-colors rounded-lg hover:bg-slate-100"
+              aria-label="Settings"
+            >
+              <Settings className="w-5 h-5" />
+            </button>
+            <button 
               onClick={handleSignOut}
-              className="text-slate-500 hover:text-red-600 transition-colors flex items-center text-sm font-medium"
+              className="text-slate-500 hover:text-red-600 transition-colors flex items-center text-sm font-medium ml-2"
               aria-label="Sign Out"
             >
               <LogOut className="w-4 h-4 mr-1.5" />
@@ -78,7 +89,7 @@ export const Navigation = () => {
       
       {/* Mobile nav */}
       <div className="sm:hidden border-t border-slate-200">
-        <div className="pt-2 pb-3 space-y-1 flex justify-around">
+        <div className="pt-2 pb-3 space-y-1 flex justify-around items-center">
           <NavLink to="/dashboard" className="p-2 text-slate-600 hover:text-brand-600" aria-label="Dashboard">
             <LayoutDashboard className="w-6 h-6" />
           </NavLink>
@@ -91,8 +102,17 @@ export const Navigation = () => {
           <NavLink to="/calm-companion" className="p-2 text-slate-600 hover:text-brand-600" aria-label="CalmCompanion">
             <MessageSquare className="w-6 h-6" />
           </NavLink>
+          <button 
+            onClick={() => setIsSettingsOpen(true)}
+            className="p-2 text-slate-600 hover:text-brand-600" 
+            aria-label="Settings"
+          >
+            <Settings className="w-6 h-6" />
+          </button>
         </div>
       </div>
+      <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
     </nav>
   );
 };
+

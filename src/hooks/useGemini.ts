@@ -1,8 +1,16 @@
 import { GoogleGenAI } from '@google/genai';
 import { useState } from 'react';
 
-// Initialize the Google Gen AI SDK
-const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
+// Initialize the Google Gen AI SDK dynamically
+const getAIClient = () => {
+  const localKey = localStorage.getItem('gemini_api_key');
+  const envKey = import.meta.env.VITE_GEMINI_API_KEY;
+  const apiKey = localKey || envKey;
+  if (!apiKey) {
+    throw new Error('Gemini API key is missing. Please set it in Settings.');
+  }
+  return new GoogleGenAI({ apiKey });
+};
 
 export interface AnalysisResult {
   sentimentAnalysis: string;
@@ -35,7 +43,7 @@ sentimentAnalysis: (one of: 'Confident', 'Hopeful', 'Neutral', 'Anxious', 'Overw
 triggers: (A list of 2-4 specific exam-related stressors mentioned or implied).
 copingStrategy: (A 3-sentence, hyper-contextual grounding exercise specific to their ${examType} pressure and the emotions detected).`;
 
-      const response = await ai.models.generateContent({
+      const response = await getAIClient().models.generateContent({
         model: 'gemini-2.5-flash',
         contents: prompt,
         config: {
@@ -83,7 +91,7 @@ Analyze these entries holistically and return a JSON object with:
 - weeklyInsight: A 2-sentence compassionate insight about the emotional pattern you detected. Be specific to ${examType} context. Do NOT be generic.
 - affirmation: A personalized, powerful 1-sentence motivational affirmation for ${userName} based on their specific ${examType} journey and recent struggles. Make it feel deeply personal, not generic.`;
 
-      const response = await ai.models.generateContent({
+      const response = await getAIClient().models.generateContent({
         model: 'gemini-2.5-flash',
         contents: prompt,
         config: {
@@ -123,7 +131,7 @@ Analyze these entries holistically and return a JSON object with:
 Your role: validate feelings, reduce study-related stress, provide hyper-personalized encouragement rooted in the challenges of ${examType} preparation.
 RULES: Never give generic advice. Always tie your response to the unique pressure of ${examType}. Keep responses concise (2-4 sentences max). Always end with a question or actionable suggestion to keep the conversation going. Be human, not clinical.`;
 
-      const response = await ai.models.generateContent({
+      const response = await getAIClient().models.generateContent({
         model: 'gemini-2.5-flash',
         contents: contents as any,
         config: {
@@ -151,7 +159,7 @@ RULES: Never give generic advice. Always tie your response to the unique pressur
         ? `The student's most recent mood was "${recentSentiment}".`
         : '';
 
-      const response = await ai.models.generateContent({
+      const response = await getAIClient().models.generateContent({
         model: 'gemini-2.5-flash',
         contents: `You are a journaling coach for ${examType} aspirants. ${contextClue}
 Generate a single, thoughtful, open-ended journaling prompt specifically for a ${examType} student today. 
